@@ -80,7 +80,7 @@
       <SAP_DI_API_DIR>$(MSBuildProjectDirectory)\..\sap-sdk\DI API\Lib</SAP_DI_API_DIR>
     </PropertyGroup>
     <Message Importance="high" Text="Verifying SAP SDK under '$(SAP_UI_API_DIR)' and '$(SAP_DI_API_DIR)'" />
-    <Error Condition=" !Exists('$(SAP_UI_API_DIR)\SAPbouiCOM.dll') " Text="Missing SAPbouiCOM.dll at $(SAP_UI_API_DIR). Place SDK DLLs under 'sap-sdk' folder in solution root." />
-    <Error Condition=" !Exists('$(SAP_DI_API_DIR)\SAPbobsCOM.dll') " Text="Missing SAPbobsCOM.dll at $(SAP_DI_API_DIR). Place SDK DLLs under 'sap-sdk' folder in solution root." />
+    <Error Condition=" !Exists('$(SAP_UI_API_DIR)\Interop.SAPbouiCOM.dll') " Text="Missing Interop.SAPbouiCOM.dll at $(SAP_UI_API_DIR). Place SDK DLLs under 'sap-sdk' folder in solution root." />
+    <Error Condition=" !Exists('$(SAP_DI_API_DIR)\Interop.SAPbobsCOM.dll') " Text="Missing Interop.SAPbobsCOM.dll at $(SAP_DI_API_DIR). Place SDK DLLs under 'sap-sdk' folder in solution root." />
   </Target>
 </Project>
