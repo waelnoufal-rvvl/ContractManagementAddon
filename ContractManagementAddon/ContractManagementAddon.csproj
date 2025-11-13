@@ -64,24 +64,22 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <!--
-      The original project referenced a monolithic `SAPBusinessOneSDK` assembly.
-      That assembly bundles both the UI API (SAPbouiCOM) and DI API
-      (SAPbobsCOM) and can cause binding conflicts when loaded alongside
-      individual interop libraries. In particular, the UI API types in
-      `SAPbouiCOM.Framework` were being resolved from a different assembly
-      than those referenced in code, resulting in ambiguous or missing
-      type errors at build time.
+      Use individual Interop DLLs instead of the monolithic `SAPBusinessOneSDK` assembly
+      to avoid binding conflicts. The individual Interop libraries are:
+      - Interop.SAPbouiCOM.dll: Provides UI API types and SAPbouiCOM.Framework
+      - Interop.SAPbobsCOM.dll: Provides DI API types (used via Infrastructure project)
 
-      To resolve these conflicts, remove the `SAPBusinessOneSDK` reference
-      and instead reference the specific SAP UI libraries used by this
-      add‑on. The `SAPbouiCOM` reference provides the core UI API types,
-      and the `SAPbouiCOM.Framework` reference provides the higher‑level
-      application framework. If DI API functionality is needed later,
-      `SAPbobsCOM` can be added separately without interfering with the UI
-      references.
+      These are loaded at runtime by the AssemblyResolve event handler in Program.cs,
+      which searches the sap-sdk folder structure for the DLL files.
     -->
-    <Reference Include="SAPbouiCOM" />
-    <Reference Include="SAPbouiCOM.Framework" />
+    <Reference Include="Interop.SAPbouiCOM">
+      <HintPath>..\sap-sdk\UI API\Lib\Interop.SAPbouiCOM.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.SAPbobsCOM">
+      <HintPath>..\sap-sdk\DI API\Lib\Interop.SAPbobsCOM.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Form1.b1f">

@@ -1,7 +1,7 @@
 using System;
-using SAPbouiCOM;
-using UIApp = SAPbouiCOM.Framework.Application;
-using DI = SAPbobsCOM;
+using SAPbouiCOM = Interop.SAPbouiCOM;
+using UIApp = Interop.SAPbouiCOM.Framework.Application;
+using DI = Interop.SAPbobsCOM;
 using ContractManagement.Infrastructure.Sap;
 
 namespace ContractManagementAddon

@@ -1,6 +1,6 @@
 using System;
-using UIApp = SAPbouiCOM;
-using DI = SAPbobsCOM;
+using UIApp = Interop.SAPbouiCOM;
+using DI = Interop.SAPbobsCOM;
 using ContractManagement.Infrastructure.Data;
 using ContractManagement.Infrastructure.Sap;
 
