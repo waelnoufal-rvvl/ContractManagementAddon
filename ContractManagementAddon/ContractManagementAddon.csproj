@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <!-- SAP Business One addon can use AnyCPU as it will be loaded by SAP -->
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{29B81D8D-6646-4EE7-9757-5135351EFA76}</ProjectGuid>
@@ -14,7 +14,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Any CPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Any CPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -80,12 +80,4 @@
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- Copy SAP SDK DLLs to output directory for runtime availability -->
-  <Target Name="CopySAPSDKDlls" AfterTargets="Build">
-    <ItemGroup>
-      <SAPDLLs Include="$(SAPSDKPath)\UI API\Lib\Interop.SAPbouiCOM.dll" />
-      <SAPDLLs Include="$(SAPSDKPath)\DI API\Lib\Interop.SAPbobsCOM.dll" />
-    </ItemGroup>
-    <Copy SourceFiles="@(SAPDLLs)" DestinationFolder="$(OutputPath)" SkipUnchangedFiles="true" />
-  </Target>
 </Project>
