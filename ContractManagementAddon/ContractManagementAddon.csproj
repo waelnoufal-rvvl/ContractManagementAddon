@@ -41,6 +41,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>ContractManagementAddon.Program</StartupObject>
+    <SAPSDKPath>$(MSBuildProjectDirectory)\..\sap-sdk</SAPSDKPath>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContractManagement.Core\ContractManagement.Core.csproj">
@@ -73,16 +74,16 @@
       which searches the sap-sdk folder structure for the DLL files.
     -->
     <Reference Include="Interop.SAPbouiCOM">
-      <HintPath>..\sap-sdk\UI API\Lib\Interop.SAPbouiCOM.dll</HintPath>
+      <HintPath>$(SAPSDKPath)\UI API\Lib\Interop.SAPbouiCOM.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="Interop.SAPbobsCOM">
-      <HintPath>..\sap-sdk\DI API\Lib\Interop.SAPbobsCOM.dll</HintPath>
+      <HintPath>$(SAPSDKPath)\DI API\Lib\Interop.SAPbobsCOM.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <!-- SAPbouiCOM.Framework is a wrapper namespace around the UI API -->
     <Reference Include="SAPbouiCOM.Framework">
-      <HintPath>..\sap-sdk\UI API\Lib\Interop.SAPbouiCOM.dll</HintPath>
+      <HintPath>$(SAPSDKPath)\UI API\Lib\Interop.SAPbouiCOM.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
   </ItemGroup>
