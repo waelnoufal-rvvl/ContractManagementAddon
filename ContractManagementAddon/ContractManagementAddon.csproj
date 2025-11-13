@@ -104,6 +104,12 @@
     <Compile Include="RetentionReleaseForm.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UIApp.cs" />
+    <Compile Include="AddonInitializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- Copy SAP SDK DLLs to output directory for runtime availability -->
