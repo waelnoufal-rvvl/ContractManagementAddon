@@ -41,8 +41,33 @@ namespace ContractManagementAddon
                 _menu = new Menu();
                 _menu.AddMenuItems();
 
-                // Register for menu events
-                _sapApplication.RegisterMenuEventHandler(_menu.SBO_Application_MenuEvent);
+                // Register for menu events using the proper Application interface
+                try
+                {
+                    // Try to register menu event handler - method name may vary in different SDK versions
+                    var methodInfo = _sapApplication.GetType().GetMethod("RegisterMenuEventHandler");
+                    if (methodInfo != null)
+                    {
+                        methodInfo.Invoke(_sapApplication, new object[] { _menu.SBO_Application_MenuEvent });
+                    }
+                    else
+                    {
+                        // If RegisterMenuEventHandler is not available, try SetMenuEventHandler
+                        methodInfo = _sapApplication.GetType().GetMethod("SetMenuEventHandler");
+                        if (methodInfo != null)
+                        {
+                            methodInfo.Invoke(_sapApplication, new object[] { _menu.SBO_Application_MenuEvent });
+                        }
+                        else
+                        {
+                            Log.Info("Menu event handler registration method not found - menu events may not work");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, "Failed to register menu event handler - trying alternative approach");
+                }
 
                 // Register for application events
                 _sapApplication.AppEvent += SBO_Application_AppEvent;
