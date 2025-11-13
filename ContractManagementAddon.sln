@@ -11,22 +11,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContractManagement.Infrastr
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		Debug|AnyCPU = Debug|AnyCPU
+		Release|AnyCPU = Release|AnyCPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{29B81D8D-6646-4EE7-9757-5135351EFA76}.Debug|Any CPU.ActiveCfg = Debug|AnyCPU
-		{29B81D8D-6646-4EE7-9757-5135351EFA76}.Debug|Any CPU.Build.0 = Debug|AnyCPU
-		{29B81D8D-6646-4EE7-9757-5135351EFA76}.Release|Any CPU.ActiveCfg = Release|AnyCPU
-		{29B81D8D-6646-4EE7-9757-5135351EFA76}.Release|Any CPU.Build.0 = Release|AnyCPU
-		{6C3A2CB6-9A27-4F5D-9D33-8A0F4D7749C4}.Debug|Any CPU.ActiveCfg = Debug|AnyCPU
-		{6C3A2CB6-9A27-4F5D-9D33-8A0F4D7749C4}.Debug|Any CPU.Build.0 = Debug|AnyCPU
-		{6C3A2CB6-9A27-4F5D-9D33-8A0F4D7749C4}.Release|Any CPU.ActiveCfg = Release|AnyCPU
-		{6C3A2CB6-9A27-4F5D-9D33-8A0F4D7749C4}.Release|Any CPU.Build.0 = Release|AnyCPU
-		{8B3B8E0F-7C2B-4D3F-B5E9-3A6B9A6E6C11}.Debug|Any CPU.ActiveCfg = Debug|AnyCPU
-		{8B3B8E0F-7C2B-4D3F-B5E9-3A6B9A6E6C11}.Debug|Any CPU.Build.0 = Debug|AnyCPU
-		{8B3B8E0F-7C2B-4D3F-B5E9-3A6B9A6E6C11}.Release|Any CPU.ActiveCfg = Release|AnyCPU
-		{8B3B8E0F-7C2B-4D3F-B5E9-3A6B9A6E6C11}.Release|Any CPU.Build.0 = Release|AnyCPU
+		{29B81D8D-6646-4EE7-9757-5135351EFA76}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{29B81D8D-6646-4EE7-9757-5135351EFA76}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{29B81D8D-6646-4EE7-9757-5135351EFA76}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{29B81D8D-6646-4EE7-9757-5135351EFA76}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{6C3A2CB6-9A27-4F5D-9D33-8A0F4D7749C4}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{6C3A2CB6-9A27-4F5D-9D33-8A0F4D7749C4}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{6C3A2CB6-9A27-4F5D-9D33-8A0F4D7749C4}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{6C3A2CB6-9A27-4F5D-9D33-8A0F4D7749C4}.Release|AnyCPU.Build.0 = Release|AnyCPU
+		{8B3B8E0F-7C2B-4D3F-B5E9-3A6B9A6E6C11}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{8B3B8E0F-7C2B-4D3F-B5E9-3A6B9A6E6C11}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{8B3B8E0F-7C2B-4D3F-B5E9-3A6B9A6E6C11}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{8B3B8E0F-7C2B-4D3F-B5E9-3A6B9A6E6C11}.Release|AnyCPU.Build.0 = Release|AnyCPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
