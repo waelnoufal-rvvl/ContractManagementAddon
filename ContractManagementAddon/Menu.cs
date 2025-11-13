@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SAPbouiCOM = Interop.SAPbouiCOM;
-using Application = Interop.SAPbouiCOM.Framework.Application;
+using SAPbouiCOM;
+using Application = SAPbouiCOM.Framework.Application;
 
 namespace ContractManagementAddon
 {

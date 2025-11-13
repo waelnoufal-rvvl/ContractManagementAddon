@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Configuration;
 using System.IO;
-using SAPbouiCOM = Interop.SAPbouiCOM;
-using SAPbobsCOM = Interop.SAPbobsCOM;
-using Application = Interop.SAPbouiCOM.Framework.Application;
+using SAPbouiCOM;
+using SAPbobsCOM;
+using Application = SAPbouiCOM.Framework.Application;
 
 namespace ContractManagementAddon
 {

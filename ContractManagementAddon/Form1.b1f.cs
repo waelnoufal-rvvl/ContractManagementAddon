@@ -1,4 +1,4 @@
-﻿using SAPbouiCOM = Interop.SAPbouiCOM;
+﻿using SAPbouiCOM;
 using System;
 using System.Collections.Generic;
 using System.Xml;
