@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>ContractManagementAddon.Program</StartupObject>
@@ -43,7 +45,28 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="SAPBusinessOneSDK" />
+    <Reference Include="SAPbouiCOM.Framework">
+      <HintPath>$(MSBuildProjectDirectory)\..\sap-sdk\UI API\Lib\SAPbouiCOM.Framework.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="SAPbouiCOM">
+      <HintPath>$(MSBuildProjectDirectory)\..\sap-sdk\UI API\Lib\SAPbouiCOM.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="SAPbobsCOM">
+      <HintPath>$(MSBuildProjectDirectory)\..\sap-sdk\DI API\Lib\SAPbobsCOM.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ContractManagement.Core\ContractManagement.Core.csproj">
+      <Project>{6C3A2CB6-9A27-4F5D-9D33-8A0F4D7749C4}</Project>
+      <Name>ContractManagement.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContractManagement.Infrastructure\ContractManagement.Infrastructure.csproj">
+      <Project>{8B3B8E0F-7C2B-4D3F-B5E9-3A6B9A6E6C11}</Project>
+      <Name>ContractManagement.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Form1.b1f">
@@ -52,10 +75,16 @@
     <Compile Include="Form1.b1f.cs">
       <DependentUpon>Form1.b1f</DependentUpon>
     </Compile>
+    <Compile Include="Log.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="IcpCommands.cs" />
+    <Compile Include="ConfigForm.cs" />
+    <Compile Include="RetentionReleaseForm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <!-- Removed COMReference in favor of explicit managed references above -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -64,4 +93,14 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="VerifySapSdk" BeforeTargets="BeforeBuild">
+    <PropertyGroup>
+      <SAP_UI_API_DIR>$(MSBuildProjectDirectory)\..\sap-sdk\UI API\Lib</SAP_UI_API_DIR>
+      <SAP_DI_API_DIR>$(MSBuildProjectDirectory)\..\sap-sdk\DI API\Lib</SAP_DI_API_DIR>
+    </PropertyGroup>
+    <Message Importance="high" Text="Verifying SAP SDK under '$(SAP_UI_API_DIR)' and '$(SAP_DI_API_DIR)'" />
+    <Error Condition=" !Exists('$(SAP_UI_API_DIR)\SAPbouiCOM.dll') " Text="Missing SAPbouiCOM.dll at $(SAP_UI_API_DIR). Place SDK DLLs under 'sap-sdk' folder in solution root." />
+    <Error Condition=" !Exists('$(SAP_UI_API_DIR)\SAPbouiCOM.Framework.dll') " Text="Missing SAPbouiCOM.Framework.dll at $(SAP_UI_API_DIR). Place SDK DLLs under 'sap-sdk' folder in solution root." />
+    <Error Condition=" !Exists('$(SAP_DI_API_DIR)\SAPbobsCOM.dll') " Text="Missing SAPbobsCOM.dll at $(SAP_DI_API_DIR). Place SDK DLLs under 'sap-sdk' folder in solution root." />
+  </Target>
 </Project>

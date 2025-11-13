@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6C3A2CB6-9A27-4F5D-9D33-8A0F4D7749C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ContractManagement.Core</RootNamespace>
+    <AssemblyName>ContractManagement.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\\Debug\\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\\Release\\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Domain\\Entities\\Contract.cs" />
+    <Compile Include="Domain\\Entities\\ContractLine.cs" />
+    <Compile Include="Domain\\Entities\\ICP.cs" />
+    <Compile Include="Domain\\Entities\\ICPLine.cs" />
+    <Compile Include="Domain\\Entities\\Deduction.cs" />
+    <Compile Include="Domain\\Enums\\ContractStatus.cs" />
+    <Compile Include="Domain\\Enums\\ICPStatus.cs" />
+    <Compile Include="Domain\\Enums\\DeductionType.cs" />
+    <Compile Include="Services\\IcpCalculator.cs" />
+    <Compile Include="Services\\Models\\IcpCalculationResult.cs" />
+    <Compile Include="Utils\\Money.cs" />
+    <Compile Include="Properties\\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\\Microsoft.CSharp.targets" />
+</Project>
+

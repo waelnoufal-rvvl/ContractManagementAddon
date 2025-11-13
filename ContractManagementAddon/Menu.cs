@@ -31,7 +31,7 @@ namespace ContractManagementAddon
                 //  If the manu already exists this code will fail
                 oMenus.AddEx(oCreationPackage);
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }
@@ -42,13 +42,29 @@ namespace ContractManagementAddon
                 oMenuItem = Application.SBO_Application.Menus.Item("ContractManagementAddon");
                 oMenus = oMenuItem.SubMenus;
 
-                // Create s sub menu
+                // Create sub menus
                 oCreationPackage.Type = SAPbouiCOM.BoMenuType.mt_STRING;
                 oCreationPackage.UniqueID = "ContractManagementAddon.Form1";
                 oCreationPackage.String = "Form1";
                 oMenus.AddEx(oCreationPackage);
+
+                oCreationPackage.UniqueID = "ContractManagementAddon.RecalcICP";
+                oCreationPackage.String = "Recalculate ICP";
+                oMenus.AddEx(oCreationPackage);
+
+                oCreationPackage.UniqueID = "ContractManagementAddon.GenerateAR";
+                oCreationPackage.String = "Generate AR Invoice";
+                oMenus.AddEx(oCreationPackage);
+
+                oCreationPackage.UniqueID = "ContractManagementAddon.Settings";
+                oCreationPackage.String = "Settings";
+                oMenus.AddEx(oCreationPackage);
+
+                oCreationPackage.UniqueID = "ContractManagementAddon.ReleaseRetention";
+                oCreationPackage.String = "Release Retention";
+                oMenus.AddEx(oCreationPackage);
             }
-            catch (Exception er)
+            catch (Exception)
             { //  Menu already exists
                 Application.SBO_Application.SetStatusBarMessage("Menu Already Exists", SAPbouiCOM.BoMessageTime.bmt_Short, true);
             }
@@ -60,10 +76,32 @@ namespace ContractManagementAddon
 
             try
             {
-                if (pVal.BeforeAction && pVal.MenuUID == "ContractManagementAddon.Form1")
+                if (pVal.BeforeAction)
                 {
-                    Form1 activeForm = new Form1();
-                    activeForm.Show();
+                    if (pVal.MenuUID == "ContractManagementAddon.Form1")
+                    {
+                        Form1 activeForm = new Form1();
+                        activeForm.Show();
+                    }
+                    else if (pVal.MenuUID == "ContractManagementAddon.RecalcICP")
+                    {
+                        IcpCommands.RecalculateActiveIcp();
+                    }
+                    else if (pVal.MenuUID == "ContractManagementAddon.GenerateAR")
+                    {
+                        IcpCommands.GenerateInvoiceForActiveIcp();
+                    }
+                    else if (pVal.MenuUID == "ContractManagementAddon.Settings")
+                    {
+                        var f = new ConfigForm();
+                        f.Show();
+                    }
+                    else if (pVal.MenuUID == "ContractManagementAddon.ReleaseRetention")
+                    {
+                        string contractCode = IcpCommands.TryGetActiveContractCode();
+                        var f = new RetentionReleaseForm(contractCode);
+                        f.Show();
+                    }
                 }
             }
             catch (Exception ex)
