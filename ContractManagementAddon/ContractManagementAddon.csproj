@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,25 +26,33 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <!-- Target the build output to 32‑bit to match SAP Business One -->
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <!-- Target the build output to 32‑bit to match SAP Business One -->
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>ContractManagementAddon.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SAPBusinessOneSDK, Version=1.1.0.1, Culture=neutral, PublicKeyToken=c7c3cb60e45d119f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files\sap\SAP Business One\SAPBusinessOneSDK.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\ContractManagement.Core\ContractManagement.Core.csproj">
+      <Project>{6C3A2CB6-9A27-4F5D-9D33-8A0F4D7749C4}</Project>
+      <Name>ContractManagement.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContractManagement.Infrastructure\ContractManagement.Infrastructure.csproj">
+      <Project>{8B3B8E0F-7C2B-4D3F-B5E9-3A6B9A6E6C11}</Project>
+      <Name>ContractManagement.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -72,10 +80,10 @@
       `SAPbobsCOM` can be added separately without interfering with the UI
       references.
     -->
+    <Reference Include="SAPbouiCOM" />
+    <Reference Include="SAPbouiCOM.Framework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RetentionReleaseForm.cs" />
-    <Compile Include="Startup.cs" />
     <None Include="Form1.b1f">
       <FormCategory>UserForm</FormCategory>
     </None>
@@ -85,10 +93,11 @@
     </Compile>
     <Compile Include="IcpCommands.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Menu.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Program.cs.bak" />
+    <Compile Include="RetentionReleaseForm.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
