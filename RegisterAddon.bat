@@ -14,14 +14,14 @@ echo ContractManagementAddon COM Registration
 echo ========================================
 echo.
 
-REM Determine which DLL to register (prefer Debug if it exists)
-set "DLL_TO_REGISTER="
+REM Determine which EXE to register (prefer Debug if it exists)
+set "EXE_TO_REGISTER="
 if exist "!DEBUG_DLL!" (
-    set "DLL_TO_REGISTER=!DEBUG_DLL!"
-    echo Using DEBUG build: !DLL_TO_REGISTER!
+    set "EXE_TO_REGISTER=!DEBUG_DLL!"
+    echo Using DEBUG build: !EXE_TO_REGISTER!
 ) else if exist "!RELEASE_DLL!" (
-    set "DLL_TO_REGISTER=!RELEASE_DLL!"
-    echo Using RELEASE build: !DLL_TO_REGISTER!
+    set "EXE_TO_REGISTER=!RELEASE_DLL!"
+    echo Using RELEASE build: !EXE_TO_REGISTER!
 ) else (
     echo ERROR: Could not find ContractManagementAddon.exe in Debug or Release directories
     echo Please build the project first.
@@ -29,10 +29,15 @@ if exist "!DEBUG_DLL!" (
     exit /b 1
 )
 
-REM Register the DLL with COM
+REM Verify we're building for 64-bit
 echo.
-echo Registering %DLL_TO_REGISTER% with COM...
-regasm.exe "!DLL_TO_REGISTER!" /codebase /tlb
+echo NOTE: This addon is designed for 64-bit SAP Business One
+echo If registration fails, ensure your SAP Business One is 64-bit
+
+REM Register the EXE with COM (for 64-bit)
+echo.
+echo Registering !EXE_TO_REGISTER! with COM...
+regasm.exe "!EXE_TO_REGISTER!" /codebase /tlb
 
 if %errorlevel% equ 0 (
     echo.

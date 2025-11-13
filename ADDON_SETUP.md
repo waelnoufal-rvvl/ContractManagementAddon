@@ -63,8 +63,9 @@ To verify the addon is registered:
 
 If the GUID doesn't exist, the registration failed. Check that:
 - You ran as Administrator
-- regasm.exe is available (usually at `C:\Windows\Microsoft.NET\Framework\v4.0.30319\regasm.exe`)
-- The addon DLL exists in the build output directory
+- regasm.exe is available (usually at `C:\Windows\Microsoft.NET\Framework64\v4.0.30319\regasm.exe` for 64-bit)
+- The addon EXE exists in the build output directory
+- Your SAP Business One installation is 64-bit
 
 ## Debugging the Addon
 
@@ -183,9 +184,9 @@ When you modify any of these classes, **rebuild the project** and:
 
 ## Important Notes
 
-### x86 Architecture
+### x64 Architecture
 
-⚠️ **Important**: SAP Business One is a 32-bit application. The project is configured to compile as **x86** only. Do NOT change the platform target to AnyCPU or x64.
+⚠️ **Important**: SAP Business One is a 64-bit application. The project is configured to compile as **x64** only. Do NOT change the platform target to AnyCPU or x86.
 
 ### Rebuilding the Addon
 
