@@ -8,6 +8,7 @@ using System.Linq;
 using System.Diagnostics;
 using ContractManagement.Core.Utils;
 using SAPbouiCOM;
+using SAPbouiCOM.Framework;
 
 namespace ContractManagementAddon
 {

@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Configuration;
 using System.IO;
 using SAPbouiCOM;
+using SAPbouiCOM.Framework;
 using SAPbobsCOM;
 using Application = SAPbouiCOM.Framework.Application;
 
