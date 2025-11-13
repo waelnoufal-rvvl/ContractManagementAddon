@@ -13,7 +13,7 @@ namespace ContractManagementAddon
         {
             try
             {
-                var frm = Application.SBO_Application.Forms.ActiveForm;
+                var frm = SAPbouiCOM.Framework.Application.SBO_Application.Forms.ActiveForm;
                 if (frm == null) return null;
                 var dbs = frm.DataSources.DBDataSources;
                 for (int i = 0; i < dbs.Count; i++)
@@ -50,21 +50,21 @@ namespace ContractManagementAddon
             var icpCode = TryGetActiveIcpCode();
             if (string.IsNullOrEmpty(icpCode))
             {
-                Application.SBO_Application.SetStatusBarMessage("No active ICP form detected.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage("No active ICP form detected.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 return;
             }
             DI.Company di = null;
             try
             {
-                di = (DI.Company)Application.SBO_Application.Company.GetDICompany();
+                di = (DI.Company)SAPbouiCOM.Framework.Application.SBO_Application.Company.GetDICompany();
                 var db = new ContractManagement.Infrastructure.Data.DiRecordsetHanaDb(di);
                 db.ExecuteNonQuery($"CALL RVCM_CALC_ICP('{icpCode.Replace("'", "''")}')");
                 db.ExecuteNonQuery($"CALL RVCM_VALIDATE_ICP('{icpCode.Replace("'", "''")}')");
-                Application.SBO_Application.SetStatusBarMessage("ICP recalculated and validated.", SAPbouiCOM.BoMessageTime.bmt_Short, false);
+                SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage("ICP recalculated and validated.", SAPbouiCOM.BoMessageTime.bmt_Short, false);
             }
             catch (Exception ex)
             {
-                Application.SBO_Application.SetStatusBarMessage($"ICP calc error: {ex.Message}", SAPbouiCOM.BoMessageTime.bmt_Long, true);
+                SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage($"ICP calc error: {ex.Message}", SAPbouiCOM.BoMessageTime.bmt_Long, true);
             }
         }
 
@@ -73,22 +73,22 @@ namespace ContractManagementAddon
             var icpCode = TryGetActiveIcpCode();
             if (string.IsNullOrEmpty(icpCode))
             {
-                Application.SBO_Application.SetStatusBarMessage("No active ICP form detected.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage("No active ICP form detected.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                 return;
             }
             DI.Company di = null;
             try
             {
-                di = (DI.Company)Application.SBO_Application.Company.GetDICompany();
+                di = (DI.Company)SAPbouiCOM.Framework.Application.SBO_Application.Company.GetDICompany();
                 var setSvc = new ContractManagement.Infrastructure.Sap.SettingsService(di);
                 var cfg = setSvc.Get();
                 var svc = new ContractManagement.Infrastructure.Sap.ArInvoiceService(di);
                 var docEntry = svc.CreateInvoiceForIcp(icpCode, draft: cfg.PostAsDraft, deductionAccountCode: cfg.DeductionAccount);
-                Application.SBO_Application.SetStatusBarMessage($"AR Invoice created. DocEntry={docEntry}", SAPbouiCOM.BoMessageTime.bmt_Short, false);
+                SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage($"AR Invoice created. DocEntry={docEntry}", SAPbouiCOM.BoMessageTime.bmt_Short, false);
             }
             catch (Exception ex)
             {
-                Application.SBO_Application.SetStatusBarMessage($"AR creation error: {ex.Message}", SAPbouiCOM.BoMessageTime.bmt_Long, true);
+                SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage($"AR creation error: {ex.Message}", SAPbouiCOM.BoMessageTime.bmt_Long, true);
             }
         }
     }
