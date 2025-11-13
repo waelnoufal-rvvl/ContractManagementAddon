@@ -1,7 +1,7 @@
-﻿using SAPbouiCOM.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Application = SAPbouiCOM.Framework.Application;
 
 namespace ContractManagementAddon
 {
