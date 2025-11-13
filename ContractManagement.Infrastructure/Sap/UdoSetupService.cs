@@ -31,13 +31,11 @@ namespace ContractManagement.Infrastructure.Sap
                 udo.ObjectType = BoUDOObjType.boud_MasterData;
                 udo.TableName = "RVCM_CNTRCT";
 
-                udo.CanArchive = BoYesNoEnum.tYES;
-                udo.CanCancel = BoYesNoEnum.tYES;
-                udo.CanClose = BoYesNoEnum.tYES;
+                // Master data types don't support CanArchive, CanCancel, CanClose, CanYearTransfer
+                // Only set properties valid for master data
                 udo.CanDelete = BoYesNoEnum.tYES;
                 udo.CanFind = BoYesNoEnum.tYES;
-                udo.ManageSeries = BoYesNoEnum.tYES;
-                udo.CanYearTransfer = BoYesNoEnum.tYES;
+                udo.ManageSeries = BoYesNoEnum.tNO;
 
                 udo.ChildTables.TableName = "RVCM_CNTRCT1";
                 udo.ChildTables.Add();
