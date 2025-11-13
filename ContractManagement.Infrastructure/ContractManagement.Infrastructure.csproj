@@ -54,16 +54,24 @@
     <Compile Include="Data\\DiRecordsetHanaDb.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="SAPbobsCOM">
-      <HintPath>$(MSBuildProjectDirectory)\..\sap-sdk\DI API\Lib\SAPbobsCOM.dll</HintPath>
-      <Private>true</Private>
-      <EmbedInteropTypes>false</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="SAPbouiCOM">
-      <HintPath>$(MSBuildProjectDirectory)\..\sap-sdk\UI API\Lib\SAPbouiCOM.dll</HintPath>
-      <Private>true</Private>
-      <EmbedInteropTypes>false</EmbedInteropTypes>
-    </Reference>
+    <COMReference Include="SAPbobsCOM">
+      <Guid>{FC8030BE-F5D2-4B8E-8F92-44228FE30100}</Guid>
+      <VersionMajor>10</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SAPbouiCOM">
+      <Guid>{6048236A-956D-498D-A6F1-9C81C13AB6E8}</Guid>
+      <VersionMajor>10</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\\Microsoft.CSharp.targets" />
   <Target Name="VerifySapSdk" BeforeTargets="BeforeBuild">
