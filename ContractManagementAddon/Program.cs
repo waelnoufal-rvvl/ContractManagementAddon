@@ -18,7 +18,7 @@ namespace ContractManagementAddon
             try
             {
                 Log.StartupBanner();
-                AppDomain.CurrentDomain.AssemblyResolve \+= ResolveSapAssemblies;
+                AppDomain.CurrentDomain.AssemblyResolve += ResolveSapAssemblies;
                 Application oApp = null;
                 if (args.Length < 1)
                 {
