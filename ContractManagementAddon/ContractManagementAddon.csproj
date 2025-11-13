@@ -74,15 +74,21 @@
     -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RetentionReleaseForm.cs" />
+    <Compile Include="Startup.cs" />
     <None Include="Form1.b1f">
       <FormCategory>UserForm</FormCategory>
     </None>
+    <Compile Include="ConfigForm.cs" />
     <Compile Include="Form1.b1f.cs">
       <DependentUpon>Form1.b1f</DependentUpon>
     </Compile>
+    <Compile Include="IcpCommands.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Program.cs.bak" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
