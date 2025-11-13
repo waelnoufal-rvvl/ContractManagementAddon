@@ -2,12 +2,8 @@
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <!-- SAP Business One is a 64‑bit application. Compiling add‑ons
-         as AnyCPU can lead to BadImageFormatException and reference
-         conflicts between x86 and x64 assemblies. Force the build
-         to target x64 so that the correct 64‑bit SAP UI and DI
-         libraries are loaded at runtime. -->
-    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <!-- SAP Business One addon can use AnyCPU as it will be loaded by SAP -->
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{29B81D8D-6646-4EE7-9757-5135351EFA76}</ProjectGuid>
@@ -18,7 +14,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,22 +22,17 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <!-- Target the build output to 64‑bit to match SAP Business One -->
-    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <!-- Target the build output to 64‑bit to match SAP Business One -->
-    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>ContractManagementAddon.Program</StartupObject>
-    <SAPSDKPath>$(MSBuildProjectDirectory)\..\sap-sdk</SAPSDKPath>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContractManagement.Core\ContractManagement.Core.csproj">
@@ -64,29 +55,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <!--
-      Use individual Interop DLLs instead of the monolithic `SAPBusinessOneSDK` assembly
-      to avoid binding conflicts. The individual Interop libraries are:
-      - Interop.SAPbouiCOM.dll: Provides UI API types and SAPbouiCOM.Framework
-      - Interop.SAPbobsCOM.dll: Provides DI API types (used via Infrastructure project)
-
-      These are loaded at runtime by the AssemblyResolve event handler in Program.cs,
-      which searches the sap-sdk folder structure for the DLL files.
-    -->
-    <!-- Reference Interop DLLs from sap-sdk folder
-         Interop.SAPbouiCOM provides UI API types and includes the Framework namespace
-         Interop.SAPbobsCOM provides DI API types for data operations
-         Set CopyLocal=true to ensure DLLs are available during compilation -->
-    <Reference Include="Interop.SAPbouiCOM">
-      <HintPath>$(SAPSDKPath)\UI API\Lib\Interop.SAPbouiCOM.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Interop.SAPbobsCOM">
-      <HintPath>$(SAPSDKPath)\DI API\Lib\Interop.SAPbobsCOM.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
+    <!-- Reference the monolithic SAP Business One SDK which includes Framework namespace -->
+    <Reference Include="SAPBusinessOneSDK" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Form1.b1f">
@@ -103,8 +73,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RetentionReleaseForm.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="UIApp.cs" />
-    <Compile Include="AddonInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

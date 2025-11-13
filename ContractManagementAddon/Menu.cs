@@ -12,11 +12,11 @@ namespace ContractManagementAddon
             SAPbouiCOM.Menus oMenus = null;
             SAPbouiCOM.MenuItem oMenuItem = null;
 
-            oMenus = UIApp.SBO_Application.Menus;
+            oMenus = Application.SBO_Application.Menus;
 
             SAPbouiCOM.MenuCreationParams oCreationPackage = null;
-            oCreationPackage = ((SAPbouiCOM.MenuCreationParams)(UIApp.SBO_Application.CreateObject(SAPbouiCOM.BoCreatableObjectType.cot_MenuCreationParams)));
-            oMenuItem = UIApp.SBO_Application.Menus.Item("43520"); // moudles'
+            oCreationPackage = ((SAPbouiCOM.MenuCreationParams)(Application.SBO_Application.CreateObject(SAPbouiCOM.BoCreatableObjectType.cot_MenuCreationParams)));
+            oMenuItem = Application.SBO_Application.Menus.Item("43520"); // moudles'
 
             oCreationPackage.Type = SAPbouiCOM.BoMenuType.mt_POPUP;
             oCreationPackage.UniqueID = "ContractManagementAddon";
@@ -39,7 +39,7 @@ namespace ContractManagementAddon
             try
             {
                 // Get the menu collection of the newly added pop-up item
-                oMenuItem = UIApp.SBO_Application.Menus.Item("ContractManagementAddon");
+                oMenuItem = Application.SBO_Application.Menus.Item("ContractManagementAddon");
                 oMenus = oMenuItem.SubMenus;
 
                 // Create sub menus
@@ -66,7 +66,7 @@ namespace ContractManagementAddon
             }
             catch (Exception)
             { //  Menu already exists
-                UIApp.SBO_Application.SetStatusBarMessage("Menu Already Exists", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                Application.SBO_Application.SetStatusBarMessage("Menu Already Exists", SAPbouiCOM.BoMessageTime.bmt_Short, true);
             }
         }
 
@@ -80,8 +80,7 @@ namespace ContractManagementAddon
                 {
                     if (pVal.MenuUID == "ContractManagementAddon.Form1")
                     {
-                        // Form1 is disabled - requires SAPbouiCOM.Framework which is not available
-                        UIApp.SBO_Application.SetStatusBarMessage("Form1 is currently disabled.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                        Application.SBO_Application.SetStatusBarMessage("Form1 is currently disabled.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     }
                     else if (pVal.MenuUID == "ContractManagementAddon.RecalcICP")
                     {
@@ -106,7 +105,7 @@ namespace ContractManagementAddon
             }
             catch (Exception ex)
             {
-                UIApp.SBO_Application.MessageBox(ex.ToString(), 1, "Ok", "", "");
+                Application.SBO_Application.MessageBox(ex.ToString(), 1, "Ok", "", "");
             }
         }
 

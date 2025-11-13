@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using SAPbouiCOM;
+using SAPbouiCOM.Framework;
 using DI = SAPbobsCOM;
 using ContractManagement.Infrastructure.Data;
 
@@ -21,7 +22,7 @@ namespace ContractManagementAddon
 
         public void Show()
         {
-            var app = UIApp.SBO_Application;
+            var app = Application.SBO_Application;
             var fcp = (FormCreationParams)app.CreateObject(BoCreatableObjectType.cot_FormCreationParams);
             fcp.UniqueID = "RVCM_RET_RELEASE";
             fcp.BorderStyle = BoFormBorderStyle.fbs_Sizable;
@@ -73,7 +74,7 @@ namespace ContractManagementAddon
             _txtAmount.Value = string.Empty;
             _txtRef.Value = string.Empty;
 
-            UIApp.SBO_Application.ItemEvent += OnAppItemEvent;
+            Application.SBO_Application.ItemEvent += OnAppItemEvent;
         }
 
         private void OnAppItemEvent(string formUID, ref ItemEvent pVal, out bool bubbleEvent)
@@ -98,29 +99,29 @@ namespace ContractManagementAddon
             var contract = _txtContract.Value?.Trim();
             if (string.IsNullOrEmpty(contract))
             {
-                UIApp.SBO_Application.SetStatusBarMessage("Contract Code is required.", BoMessageTime.bmt_Short, true);
+                Application.SBO_Application.SetStatusBarMessage("Contract Code is required.", BoMessageTime.bmt_Short, true);
                 return;
             }
             if (!decimal.TryParse(_txtAmount.Value?.Trim(), NumberStyles.Number, CultureInfo.InvariantCulture, out var amount) || amount <= 0)
             {
-                UIApp.SBO_Application.SetStatusBarMessage("Enter a positive numeric amount.", BoMessageTime.bmt_Short, true);
+                Application.SBO_Application.SetStatusBarMessage("Enter a positive numeric amount.", BoMessageTime.bmt_Short, true);
                 return;
             }
             var reference = _txtRef.Value?.Trim() ?? string.Empty;
 
             try
             {
-                var di = (DI.Company)UIApp.SBO_Application.Company.GetDICompany();
+                var di = (DI.Company)Application.SBO_Application.Company.GetDICompany();
                 var db = new ContractManagement.Infrastructure.Data.DiRecordsetHanaDb(di);
                 var amtStr = amount.ToString(CultureInfo.InvariantCulture);
                 var refSql = reference.Replace("'", "''");
                 var ctrSql = contract.Replace("'", "''");
                 db.ExecuteNonQuery($"CALL RVCM_RELEASE_RETENTION('{ctrSql}', {amtStr}, '{refSql}')");
-                UIApp.SBO_Application.SetStatusBarMessage("Retention released and balances updated.", BoMessageTime.bmt_Short, false);
+                Application.SBO_Application.SetStatusBarMessage("Retention released and balances updated.", BoMessageTime.bmt_Short, false);
             }
             catch (Exception ex)
             {
-                UIApp.SBO_Application.SetStatusBarMessage($"Release failed: {ex.Message}", BoMessageTime.bmt_Long, true);
+                Application.SBO_Application.SetStatusBarMessage($"Release failed: {ex.Message}", BoMessageTime.bmt_Long, true);
             }
         }
     }

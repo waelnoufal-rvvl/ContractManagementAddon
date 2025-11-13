@@ -7,6 +7,7 @@ using System.Linq;
 using System.Diagnostics;
 using ContractManagement.Core.Utils;
 using SAPbouiCOM;
+using SAPbouiCOM.Framework;
 
 namespace ContractManagementAddon
 {
@@ -24,10 +25,10 @@ namespace ContractManagementAddon
                 Log.DumpAssembly(typeof(Money).Assembly, "Core");
                 try { Log.DumpAssembly(typeof(SAPbouiCOM.Menus).Assembly, "Interop.SAPbouiCOM"); } catch { }
                 try { Log.DumpAssembly(typeof(DI.Company).Assembly, "Interop.SAPbobsCOM"); } catch { }
-                diCompany = (DI.Company)UIApp.SBO_Application.Company.GetDICompany();
+                diCompany = (DI.Company)Application.SBO_Application.Company.GetDICompany();
                 if (diCompany == null || !diCompany.Connected)
                 {
-                    UIApp.SBO_Application.SetStatusBarMessage("DI Company not connected; setup skipped.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                    Application.SBO_Application.SetStatusBarMessage("DI Company not connected; setup skipped.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     Log.Info("DI Company not connected; setup skipped.");
                     return;
                 }
@@ -74,7 +75,7 @@ namespace ContractManagementAddon
                     catch { /* ignore */ }
 
                     Log.Error(mme, "Missing method while running setup");
-                    UIApp.SBO_Application.SetStatusBarMessage($"Setup error (missing method). See log: {Log.PathToLog}", SAPbouiCOM.BoMessageTime.bmt_Long, true);
+                    Application.SBO_Application.SetStatusBarMessage($"Setup error (missing method). See log: {Log.PathToLog}", SAPbouiCOM.BoMessageTime.bmt_Long, true);
                     return;
                 }
                 catch (Exception ex)
@@ -83,7 +84,7 @@ namespace ContractManagementAddon
                     throw;
                 }
 
-                UIApp.SBO_Application.SetStatusBarMessage("Contract Management setup complete.", SAPbouiCOM.BoMessageTime.bmt_Short, false);
+                Application.SBO_Application.SetStatusBarMessage("Contract Management setup complete.", SAPbouiCOM.BoMessageTime.bmt_Short, false);
                 Log.Info("Setup complete");
             }
             catch (Exception ex)
@@ -102,7 +103,7 @@ namespace ContractManagementAddon
                     Log.Info($"Loaded assemblies: {loaded}");
                 }
                 catch { /* ignore */ }
-                UIApp.SBO_Application.SetStatusBarMessage($"Setup error. See log: {Log.PathToLog}", SAPbouiCOM.BoMessageTime.bmt_Long, true);
+                Application.SBO_Application.SetStatusBarMessage($"Setup error. See log: {Log.PathToLog}", SAPbouiCOM.BoMessageTime.bmt_Long, true);
             }
         }
     }
