@@ -14,7 +14,7 @@ namespace ContractManagementAddon
 
         public void Show()
         {
-            var app = Application.SBO_Application;
+            var app = SAPbouiCOM.Framework.Application.SBO_Application;
             var fcp = (FormCreationParams)app.CreateObject(BoCreatableObjectType.cot_FormCreationParams);
             fcp.UniqueID = "RVCM_CFG_FORM";
             fcp.BorderStyle = BoFormBorderStyle.fbs_Sizable;
@@ -55,12 +55,12 @@ namespace ContractManagementAddon
 
             LoadValues();
 
-            Application.SBO_Application.ItemEvent += OnAppItemEvent;
+            SAPbouiCOM.Framework.Application.SBO_Application.ItemEvent += OnAppItemEvent;
         }
 
         private void LoadValues()
         {
-            var di = (DI.Company)Application.SBO_Application.Company.GetDICompany();
+            var di = (DI.Company)SAPbouiCOM.Framework.Application.SBO_Application.Company.GetDICompany();
             var svc = new ContractManagement.Infrastructure.Sap.SettingsService(di);
             var s = svc.Get();
             _txtAccount.Value = s.DeductionAccount ?? string.Empty;
@@ -77,18 +77,18 @@ namespace ContractManagementAddon
                 {
                     try
                     {
-                        var di = (DI.Company)Application.SBO_Application.Company.GetDICompany();
+                        var di = (DI.Company)SAPbouiCOM.Framework.Application.SBO_Application.Company.GetDICompany();
                         var svc = new ContractManagement.Infrastructure.Sap.SettingsService(di);
                         svc.Save(new ContractManagement.Infrastructure.Sap.AddonSettings
                         {
                             DeductionAccount = _txtAccount.Value?.Trim(),
                             PostAsDraft = _chkDraft.Checked
                         });
-                        Application.SBO_Application.SetStatusBarMessage("Settings saved.", BoMessageTime.bmt_Short, false);
+                        SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage("Settings saved.", BoMessageTime.bmt_Short, false);
                     }
                     catch (Exception ex)
                     {
-                        Application.SBO_Application.SetStatusBarMessage($"Save failed: {ex.Message}", BoMessageTime.bmt_Long, true);
+                        SAPbouiCOM.Framework.Application.SBO_Application.SetStatusBarMessage($"Save failed: {ex.Message}", BoMessageTime.bmt_Long, true);
                     }
                 }
                 else if (pVal.ItemUID == "btnCancel")
