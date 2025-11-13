@@ -80,8 +80,8 @@ namespace ContractManagementAddon
                 {
                     if (pVal.MenuUID == "ContractManagementAddon.Form1")
                     {
-                        Form1 activeForm = new Form1();
-                        activeForm.Show();
+                        // Form1 is disabled - requires SAPbouiCOM.Framework which is not available
+                        UIApp.SBO_Application.SetStatusBarMessage("Form1 is currently disabled.", SAPbouiCOM.BoMessageTime.bmt_Short, true);
                     }
                     else if (pVal.MenuUID == "ContractManagementAddon.RecalcICP")
                     {

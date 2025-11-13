@@ -2,7 +2,7 @@ using System;
 
 namespace ContractManagement.Core.Utils
 {
-    internal static class Money
+    public static class Money
     {
         public static decimal Round2(decimal value)
         {
