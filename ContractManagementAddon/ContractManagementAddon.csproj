@@ -73,18 +73,18 @@
       These are loaded at runtime by the AssemblyResolve event handler in Program.cs,
       which searches the sap-sdk folder structure for the DLL files.
     -->
+    <!-- Reference Interop DLLs from sap-sdk folder
+         Interop.SAPbouiCOM provides UI API types and includes the Framework namespace
+         Interop.SAPbobsCOM provides DI API types for data operations -->
     <Reference Include="Interop.SAPbouiCOM">
       <HintPath>$(SAPSDKPath)\UI API\Lib\Interop.SAPbouiCOM.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Interop.SAPbobsCOM">
       <HintPath>$(SAPSDKPath)\DI API\Lib\Interop.SAPbobsCOM.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-    <!-- SAPbouiCOM.Framework is a wrapper namespace around the UI API -->
-    <Reference Include="SAPbouiCOM.Framework">
-      <HintPath>$(SAPSDKPath)\UI API\Lib\Interop.SAPbouiCOM.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
