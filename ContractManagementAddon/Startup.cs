@@ -1,5 +1,4 @@
 using System;
-using UIApp = SAPbouiCOM.Framework.Application;
 using DI = SAPbobsCOM;
 using ContractManagement.Infrastructure.Sap;
 using ContractManagement.Infrastructure.Data;
@@ -8,7 +7,6 @@ using System.Linq;
 using System.Diagnostics;
 using ContractManagement.Core.Utils;
 using SAPbouiCOM;
-using SAPbouiCOM.Framework;
 
 namespace ContractManagementAddon
 {
@@ -24,7 +22,6 @@ namespace ContractManagementAddon
                 Log.DumpAssembly(typeof(Startup).Assembly, "Addon");
                 Log.DumpAssembly(typeof(UdtSetupService).Assembly, "Infrastructure");
                 Log.DumpAssembly(typeof(Money).Assembly, "Core");
-                try { Log.DumpAssembly(typeof(SAPbouiCOM.Framework.Application).Assembly, "Interop.SAPbouiCOM.Framework"); } catch { }
                 try { Log.DumpAssembly(typeof(SAPbouiCOM.Menus).Assembly, "Interop.SAPbouiCOM"); } catch { }
                 try { Log.DumpAssembly(typeof(DI.Company).Assembly, "Interop.SAPbobsCOM"); } catch { }
                 diCompany = (DI.Company)UIApp.SBO_Application.Company.GetDICompany();

@@ -4,9 +4,7 @@ using System.Reflection;
 using System.Configuration;
 using System.IO;
 using SAPbouiCOM;
-using SAPbouiCOM.Framework;
 using SAPbobsCOM;
-using Application = SAPbouiCOM.Framework.Application;
 
 namespace ContractManagementAddon
 {
@@ -22,24 +20,18 @@ namespace ContractManagementAddon
             {
                 Log.StartupBanner();
                 AppDomain.CurrentDomain.AssemblyResolve += ResolveSapAssemblies;
-                Application oApp = null;
-                if (args.Length < 1)
-                {
-                    oApp = new Application();
-                }
-                else
-                {
-                    //If you want to use an add-on identifier for the development license, you can specify an add-on identifier string as the second parameter.
-                    //oApp = new Application(args[0], "XXXXX");
-                    oApp = new Application(args[0]);
-                }
-                Menu MyMenu = new Menu();
-                MyMenu.AddMenuItems();
-                oApp.RegisterMenuEventHandler(MyMenu.SBO_Application_MenuEvent);
-                // Run setup on startup: UDT/UDO and HANA procedures
-                Startup.RunSetup();
-                Application.SBO_Application.AppEvent += new SAPbouiCOM._IApplicationEvents_AppEventEventHandler(SBO_Application_AppEvent);
-                oApp.Run();
+
+                // This addon is designed to be loaded by SAP Business One as a plugin.
+                // It cannot be run as a standalone application. The SAP Business One
+                // application will provide the SAPbouiCOM.Application instance through
+                // its addon loader mechanism.
+
+                System.Windows.Forms.MessageBox.Show(
+                    "ContractManagementAddon must be installed and loaded through SAP Business One.\n\n" +
+                    "Please install this addon in SAP Business One and enable it from Tools > Add-ons Manager.",
+                    "ContractManagementAddon - Setup Required",
+                    System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -54,7 +46,7 @@ namespace ContractManagementAddon
             {
                 var name = new System.Reflection.AssemblyName(args.Name).Name;
                 // Support both original and Interop assembly names
-                if (name != "SAPbouiCOM.Framework" && name != "SAPbouiCOM" && name != "SAPbobsCOM" &&
+                if (name != "SAPbouiCOM" && name != "SAPbobsCOM" &&
                     name != "Interop.SAPbouiCOM" && name != "Interop.SAPbobsCOM") return null;
 
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -91,7 +83,7 @@ namespace ContractManagementAddon
             string interopDllName = null;
 
             // For non-Interop names, also try the Interop versions
-            if (name == "SAPbouiCOM" || name == "SAPbouiCOM.Framework")
+            if (name == "SAPbouiCOM")
                 interopDllName = "Interop.SAPbouiCOM.dll";
             else if (name == "SAPbobsCOM")
                 interopDllName = "Interop.SAPbobsCOM.dll";
@@ -128,7 +120,7 @@ namespace ContractManagementAddon
             }
             return list.ToArray();
         }
-static void SBO_Application_AppEvent(SAPbouiCOM.BoAppEventTypes EventType)
+        private static void SBO_Application_AppEvent(SAPbouiCOM.BoAppEventTypes EventType)
         {
             switch (EventType)
             {

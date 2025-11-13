@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using SAPbouiCOM;
-using SAPbouiCOM.Framework;
-using Application = SAPbouiCOM.Framework.Application;
 
 namespace ContractManagementAddon
 {
@@ -14,11 +12,11 @@ namespace ContractManagementAddon
             SAPbouiCOM.Menus oMenus = null;
             SAPbouiCOM.MenuItem oMenuItem = null;
 
-            oMenus = Application.SBO_Application.Menus;
+            oMenus = UIApp.SBO_Application.Menus;
 
             SAPbouiCOM.MenuCreationParams oCreationPackage = null;
-            oCreationPackage = ((SAPbouiCOM.MenuCreationParams)(Application.SBO_Application.CreateObject(SAPbouiCOM.BoCreatableObjectType.cot_MenuCreationParams)));
-            oMenuItem = Application.SBO_Application.Menus.Item("43520"); // moudles'
+            oCreationPackage = ((SAPbouiCOM.MenuCreationParams)(UIApp.SBO_Application.CreateObject(SAPbouiCOM.BoCreatableObjectType.cot_MenuCreationParams)));
+            oMenuItem = UIApp.SBO_Application.Menus.Item("43520"); // moudles'
 
             oCreationPackage.Type = SAPbouiCOM.BoMenuType.mt_POPUP;
             oCreationPackage.UniqueID = "ContractManagementAddon";
@@ -41,7 +39,7 @@ namespace ContractManagementAddon
             try
             {
                 // Get the menu collection of the newly added pop-up item
-                oMenuItem = Application.SBO_Application.Menus.Item("ContractManagementAddon");
+                oMenuItem = UIApp.SBO_Application.Menus.Item("ContractManagementAddon");
                 oMenus = oMenuItem.SubMenus;
 
                 // Create sub menus
@@ -68,7 +66,7 @@ namespace ContractManagementAddon
             }
             catch (Exception)
             { //  Menu already exists
-                Application.SBO_Application.SetStatusBarMessage("Menu Already Exists", SAPbouiCOM.BoMessageTime.bmt_Short, true);
+                UIApp.SBO_Application.SetStatusBarMessage("Menu Already Exists", SAPbouiCOM.BoMessageTime.bmt_Short, true);
             }
         }
 
@@ -108,7 +106,7 @@ namespace ContractManagementAddon
             }
             catch (Exception ex)
             {
-                Application.SBO_Application.MessageBox(ex.ToString(), 1, "Ok", "", "");
+                UIApp.SBO_Application.MessageBox(ex.ToString(), 1, "Ok", "", "");
             }
         }
 
