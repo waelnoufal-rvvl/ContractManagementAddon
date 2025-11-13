@@ -41,32 +41,37 @@ namespace ContractManagementAddon
                 _menu = new Menu();
                 _menu.AddMenuItems();
 
-                // Register for menu events using the proper Application interface
+                // Register for menu events
+                // Note: In some SAP SDK versions, menu event handlers are registered automatically
+                // when SetMenuEventHandler is available. Otherwise, menus will still function but
+                // without event handling through the standard method.
                 try
                 {
-                    // Try to register menu event handler - method name may vary in different SDK versions
-                    var methodInfo = _sapApplication.GetType().GetMethod("RegisterMenuEventHandler");
+                    // Try to find and invoke the menu event handler registration method
+                    var appType = _sapApplication.GetType();
+                    var methodInfo = appType.GetMethod("SetMenuEventHandler",
+                        System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+
                     if (methodInfo != null)
                     {
-                        methodInfo.Invoke(_sapApplication, new object[] { _menu.SBO_Application_MenuEvent });
+                        // Create a delegate for the menu event handler
+                        var handlerDelegate = Delegate.CreateDelegate(
+                            methodInfo.GetParameters()[0].ParameterType,
+                            _menu,
+                            "SBO_Application_MenuEvent");
+
+                        methodInfo.Invoke(_sapApplication, new object[] { handlerDelegate });
+                        Log.Info("Menu event handler registered successfully");
                     }
                     else
                     {
-                        // If RegisterMenuEventHandler is not available, try SetMenuEventHandler
-                        methodInfo = _sapApplication.GetType().GetMethod("SetMenuEventHandler");
-                        if (methodInfo != null)
-                        {
-                            methodInfo.Invoke(_sapApplication, new object[] { _menu.SBO_Application_MenuEvent });
-                        }
-                        else
-                        {
-                            Log.Info("Menu event handler registration method not found - menu events may not work");
-                        }
+                        Log.Info("SetMenuEventHandler method not found - menu events will be handled directly by the menu object");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex, "Failed to register menu event handler - trying alternative approach");
+                    Log.Error(ex, "Failed to register menu event handler via reflection");
+                    Log.Info("Continuing without menu event handler registration - menus may not respond to events");
                 }
 
                 // Register for application events
