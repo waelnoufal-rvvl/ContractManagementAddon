@@ -84,7 +84,10 @@ namespace ContractManagement.Infrastructure.Sap
                 udt = (UserTablesMD)_company.GetBusinessObject(BoObjectTypes.oUserTables);
                 if (udt.GetByKey(tableNameNoAt)) return;
                 udt.TableName = tableNameNoAt;
-                udt.TableDescription = description ?? tableNameNoAt;
+                // Ensure description doesn't exceed SAP B1's field limit (30 chars)
+                var desc = description ?? tableNameNoAt;
+                if (desc.Length > 30) desc = desc.Substring(0, 30);
+                udt.TableDescription = desc;
                 udt.TableType = BoUTBTableType.bott_NoObject;
                 var res = udt.Add();
                 if (res != 0)
@@ -108,7 +111,10 @@ namespace ContractManagement.Infrastructure.Sap
                 if (!udt.GetByKey(headerName))
                 {
                     udt.TableName = headerName;
-                    udt.TableDescription = description ?? headerName;
+                    // Ensure description doesn't exceed SAP B1's field limit (30 chars)
+                    var headerDesc = description ?? headerName;
+                    if (headerDesc.Length > 30) headerDesc = headerDesc.Substring(0, 30);
+                    udt.TableDescription = headerDesc;
                     udt.TableType = headerType;
                     var res = udt.Add();
                     if (res != 0)
@@ -122,7 +128,10 @@ namespace ContractManagement.Infrastructure.Sap
                 if (!udt.GetByKey(headerName + "1"))
                 {
                     udt.TableName = headerName + "1";
-                    udt.TableDescription = description + " Lines";
+                    // Ensure description + " Lines" doesn't exceed 30 chars
+                    var lineDesc = (description ?? headerName) + " Lines";
+                    if (lineDesc.Length > 30) lineDesc = lineDesc.Substring(0, 30);
+                    udt.TableDescription = lineDesc;
                     udt.TableType = lineType;
                     var res2 = udt.Add();
                     if (res2 != 0)
