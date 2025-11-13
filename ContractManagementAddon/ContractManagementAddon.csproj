@@ -2,12 +2,12 @@
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <!-- SAP Business One is a 32‑bit application. Compiling add‑ons
+    <!-- SAP Business One is a 64‑bit application. Compiling add‑ons
          as AnyCPU can lead to BadImageFormatException and reference
          conflicts between x86 and x64 assemblies. Force the build
-         to target x86 so that the correct 32‑bit SAP UI and DI
+         to target x64 so that the correct 64‑bit SAP UI and DI
          libraries are loaded at runtime. -->
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{29B81D8D-6646-4EE7-9757-5135351EFA76}</ProjectGuid>
@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,18 +26,18 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <!-- Target the build output to 32‑bit to match SAP Business One -->
-    <PlatformTarget>x86</PlatformTarget>
+    <!-- Target the build output to 64‑bit to match SAP Business One -->
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <!-- Target the build output to 32‑bit to match SAP Business One -->
-    <PlatformTarget>x86</PlatformTarget>
+    <!-- Target the build output to 64‑bit to match SAP Business One -->
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>ContractManagementAddon.Program</StartupObject>
@@ -104,6 +104,12 @@
     <Compile Include="RetentionReleaseForm.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UIApp.cs" />
+    <Compile Include="AddonInitializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- Copy SAP SDK DLLs to output directory for runtime availability -->
