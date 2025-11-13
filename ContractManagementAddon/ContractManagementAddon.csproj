@@ -80,6 +80,11 @@
       <HintPath>..\sap-sdk\DI API\Lib\Interop.SAPbobsCOM.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <!-- SAPbouiCOM.Framework is a wrapper namespace around the UI API -->
+    <Reference Include="SAPbouiCOM.Framework">
+      <HintPath>..\sap-sdk\UI API\Lib\Interop.SAPbouiCOM.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Form1.b1f">
